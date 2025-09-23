@@ -18,8 +18,6 @@
  */
 
 #include "nsxiv.h"
-#define INCLUDE_THUMBS_CONFIG
-#include "config.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -33,6 +31,10 @@
 #if HAVE_LIBEXIF
 #include <libexif/exif-data.h>
 #endif
+
+extern int *cfg_thumb_sizes;
+extern int cfg_thumb_sizes_idx;
+extern int num_thumb_sizes;
 
 static char *cache_dir;
 static char *cache_tmpfile, *cache_tmpfile_base;
@@ -183,7 +185,7 @@ void tns_init(tns_t *tns, fileinfo_t *tns_files, const int *cnt, int *sel, win_t
 	tns->win = win;
 	tns->dirty = false;
 
-	tns->zl = THUMB_SIZE;
+	tns->zl = cfg_thumb_sizes_idx;
 	tns_zoom(tns, 0);
 
 	tns->filters = NULL;
@@ -281,7 +283,7 @@ static Imlib_Image tns_scale_down(Imlib_Image im, int dim)
 
 bool tns_load(tns_t *tns, int n, bool force, bool cache_only)
 {
-	int maxwh = thumb_sizes[ARRLEN(thumb_sizes) - 1];
+	int maxwh = cfg_thumb_sizes[num_thumb_sizes - 1];
 	bool cache_hit = false;
 	char *cfile;
 	thumb_t *t;
@@ -385,7 +387,7 @@ bool tns_load(tns_t *tns, int n, bool force, bool cache_only)
 	if (cache_only) {
 		imlib_free_image_and_decache();
 	} else {
-		t->im = tns_scale_down(im, thumb_sizes[tns->zl]);
+		t->im = tns_scale_down(im, cfg_thumb_sizes[tns->zl]);
 		imlib_context_set_image(t->im);
 		t->w = imlib_image_get_width();
 		t->h = imlib_image_get_height();
@@ -486,8 +488,8 @@ void tns_render(tns_t *tns)
 	for (i = tns->first; i < tns->end; i++) {
 		t = &tns->thumbs[i];
 		if (t->im != NULL) {
-			t->x = x + (thumb_sizes[tns->zl] - t->w) / 2;
-			t->y = y + (thumb_sizes[tns->zl] - t->h) / 2;
+			t->x = x + (cfg_thumb_sizes[tns->zl] - t->w) / 2;
+			t->y = y + (cfg_thumb_sizes[tns->zl] - t->h) / 2;
 			imlib_context_set_image(t->im);
 			imlib_render_image_on_drawable_at_size(t->x, t->y, t->w, t->h);
 			if (tns->files[i].flags & FF_MARK)
@@ -606,11 +608,11 @@ bool tns_zoom(tns_t *tns, int d)
 	oldzl = tns->zl;
 	tns->zl += -(d < 0) + (d > 0);
 	tns->zl = MAX(tns->zl, 0);
-	tns->zl = MIN(tns->zl, (int)ARRLEN(thumb_sizes) - 1);
+	tns->zl = MIN(tns->zl, num_thumb_sizes - 1);
 
-	tns->bw = ((thumb_sizes[tns->zl] - 1) >> 5) + 1;
+	tns->bw = ((cfg_thumb_sizes[tns->zl] - 1) >> 5) + 1;
 	tns->bw = MIN(tns->bw, 4);
-	tns->dim = thumb_sizes[tns->zl] + 2 * tns->bw + 6;
+	tns->dim = cfg_thumb_sizes[tns->zl] + 2 * tns->bw + 6;
 
 	if (tns->zl != oldzl) {
 		for (i = 0; i < *tns->cnt; i++)

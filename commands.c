@@ -299,7 +299,7 @@ bool ci_toggle_animation(arg_t _)
 	return dirty;
 }
 
-bool ci_scroll(arg_t dir)
+bool ci_scroll_image(arg_t dir)
 {
 	return img_pan(&img, dir, prefix);
 }
@@ -423,7 +423,7 @@ bool ct_reload_all(arg_t _)
 	return true;
 }
 
-bool ct_scroll(arg_t dir)
+bool ct_scroll_thumbnails(arg_t dir)
 {
 	return tns_scroll(&tns, dir, false);
 }

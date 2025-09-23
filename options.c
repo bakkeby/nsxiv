@@ -19,8 +19,6 @@
 
 #include "nsxiv.h"
 #include "version.h"
-#define INCLUDE_OPTIONS_CONFIG
-#include "config.h"
 
 #include <assert.h>
 #include <limits.h>
@@ -36,6 +34,11 @@
 #pragma GCC diagnostic ignored "-Wunused-function"
 #include "optparse.h"
 #pragma GCC diagnostic pop
+
+extern int cfg_options_anti_alias;
+extern int cfg_options_alpha_layer;
+extern int cfg_options_tns_blacklist;
+extern char *cfg_options_tns_filters;
 
 const opt_t *options;
 
@@ -140,8 +143,8 @@ void parse_options(int argc, char **argv)
 
 	_options.scalemode = SCALE_DOWN;
 	_options.zoom = 1.0;
-	_options.anti_alias = ANTI_ALIAS;
-	_options.alpha_layer = ALPHA_LAYER;
+	_options.anti_alias = cfg_options_anti_alias;
+	_options.alpha_layer = cfg_options_alpha_layer;
 	_options.animate = false;
 	_options.gamma = 0;
 	_options.slideshow = 0;
@@ -153,8 +156,8 @@ void parse_options(int argc, char **argv)
 	_options.geometry = NULL;
 	_options.res_name = NULL;
 
-	_options.tns_filters = TNS_FILTERS;
-	_options.tns_filters_is_blacklist = TNS_FILTERS_IS_BLACKLIST;
+	_options.tns_filters = cfg_options_tns_filters;
+	_options.tns_filters_is_blacklist = cfg_options_tns_blacklist;
 	_options.quiet = false;
 	_options.thumb_mode = false;
 	_options.clean_cache = false;

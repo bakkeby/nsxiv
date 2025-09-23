@@ -20,7 +20,6 @@
 #include "nsxiv.h"
 #define INCLUDE_MAPPINGS_CONFIG
 #include "commands.h"
-#include "config.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -41,8 +40,9 @@
 
 #include <X11/XF86keysym.h>
 #include <X11/keysym.h>
+#include "lib/include.h"
 
-#define MODMASK(mask) (USED_MODMASK & (mask))
+#define MODMASK(mask) (mask & ~(LockMask) && (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define BAR_SEP "  "
 
 #define TV_DIFF(t1,t2) (((t1)->tv_sec  - (t2)->tv_sec ) * 1000 + \
@@ -102,6 +102,8 @@ static struct {
 	{ clear_resize },
 };
 
+#include "lib/include.c"
+
 /*
  * function implementations
  */
@@ -110,6 +112,7 @@ static void cleanup(void)
 {
 	img_close(&img, false);
 	arl_cleanup(&arl);
+	cleanup_config();
 	tns_free(&tns);
 	win_close(&win);
 }
@@ -512,11 +515,11 @@ int nav_button(void)
 {
 	int x, y, nw;
 
-	if (NAV_WIDTH == 0)
+	if (cfg_navigation_width == 0)
 		return 1;
 
 	win_cursor_pos(&win, &x, &y);
-	nw = NAV_IS_REL ? win.w * NAV_WIDTH / 100 : NAV_WIDTH;
+	nw = cfg_navigation_width_is_rel ? win.w * cfg_navigation_width / 100 : cfg_navigation_width;
 	nw = MIN(nw, ((int)win.w + 1) / 2);
 
 	if (x < nw)
@@ -561,7 +564,7 @@ void reset_cursor(void)
 					c = nav_button();
 					c = MAX(fileidx > 0 ? 0 : 1, c);
 					c = MIN(fileidx + 1 < filecnt ? 2 : 1, c);
-					cursor = imgcursor[c];
+					cursor = cfg_image_cursor[c];
 				}
 				break;
 			}
@@ -607,7 +610,7 @@ void handle_key_handler(bool init)
 	if (init) {
 		snprintf(win.bar.r.buf, win.bar.r.size,
 		         "Getting key handler input (%s to abort)...",
-		         XKeysymToString(KEYHANDLER_ABORT));
+		         XKeysymToString(cfg_keyhandler_abort));
 	} else { /* abort */
 		update_info();
 	}
@@ -696,20 +699,24 @@ static bool run_key_handler(const char *key, unsigned int mask)
 	return true;
 }
 
-static bool process_bindings(const keymap_t *bindings, unsigned int len, KeySym ksym_or_button,
-                             unsigned int state, unsigned int implicit_mod)
-{
+static bool process_bindings(
+	const keymap_t *bindings,
+	unsigned int num_bindings,
+	KeySym keysym,
+	unsigned int state
+) {
 	unsigned int i;
 	bool dirty = false;
 
-	for (i = 0; i < len; i++) {
-		if (bindings[i].ksym_or_button == ksym_or_button &&
-		    MODMASK(bindings[i].mask | implicit_mod) == MODMASK(state) &&
-		    bindings[i].cmd.func != NULL &&
-		    (bindings[i].cmd.mode == MODE_ALL || bindings[i].cmd.mode == mode))
-		{
-			if (bindings[i].cmd.func(bindings[i].arg))
+	for (i = 0; i < num_bindings; i++) {
+		if (bindings[i].keysym == keysym &&
+			MODMASK(bindings[i].mask) == MODMASK(state) &&
+			bindings[i].func != NULL &&
+			(bindings[i].mode == MODE_ALL || bindings[i].mode == mode)
+		) {
+			if (bindings[i].func(bindings[i].arg)) {
 				dirty = true;
+			}
 		}
 	}
 	return dirty;
@@ -717,35 +724,27 @@ static bool process_bindings(const keymap_t *bindings, unsigned int len, KeySym 
 
 static void on_keypress(XKeyEvent *kev)
 {
-	unsigned int sh = 0;
-	KeySym ksym, shksym;
-	char dummy, key;
+	KeySym *ksym;
+	int keysyms_return;
 	bool dirty = false;
 
-	XLookupString(kev, &key, 1, &ksym, NULL);
+	ksym = XGetKeyboardMapping(win.env.dpy, kev->keycode, 1, &keysyms_return);
 
-	if (kev->state & ShiftMask) {
-		kev->state &= ~ShiftMask;
-		XLookupString(kev, &dummy, 1, &shksym, NULL);
-		kev->state |= ShiftMask;
-		if (ksym != shksym)
-			sh = ShiftMask;
-	}
-	if (IsModifierKey(ksym))
+	if (IsModifierKey(*ksym))
 		return;
-	if (extprefix && ksym == KEYHANDLER_ABORT && MODMASK(kev->state) == 0) {
+	if (extprefix && *ksym == cfg_keyhandler_abort && MODMASK(kev->state) == 0) {
 		handle_key_handler(false);
 	} else if (extprefix) {
-		if ((dirty = run_key_handler(XKeysymToString(ksym), kev->state & ~sh)))
+		if ((dirty = run_key_handler(XKeysymToString(*ksym), kev->state)))
 			extprefix = false;
 		else
 			handle_key_handler(false);
-	} else if (key >= '0' && key <= '9') {
+	} else if (*ksym >= '0' && *ksym <= '9') {
 		/* number prefix for commands */
-		prefix = prefix * 10 + (int)(key - '0');
+		prefix = prefix * 10 + (int)(*ksym - '0');
 		return;
 	} else {
-		dirty = process_bindings(keys, ARRLEN(keys), ksym, kev->state, sh);
+		dirty = process_bindings(cfg_keys, num_key_bindings, *ksym, kev->state);
 	}
 	if (dirty)
 		redraw();
@@ -759,9 +758,9 @@ static void on_buttonpress(const XButtonEvent *bev)
 	if (mode == MODE_IMAGE) {
 		set_timeout(reset_cursor, TO_CURSOR_HIDE, true);
 		reset_cursor();
-		dirty = process_bindings(buttons_img, ARRLEN(buttons_img), bev->button, bev->state, 0);
+		dirty = process_bindings(cfg_buttons_img, num_button_img_bindings, bev->button, bev->state);
 	} else { /* thumbnail mode */
-		dirty = process_bindings(buttons_tns, ARRLEN(buttons_tns), bev->button, bev->state, 0);
+		dirty = process_bindings(cfg_buttons_tns, num_button_tns_bindings, bev->button, bev->state);
 	}
 	if (dirty)
 		redraw();
@@ -903,6 +902,7 @@ int main(int argc, char *argv[])
 
 	setlocale(LC_COLLATE, "");
 
+	load_config();
 	parse_options(argc, argv);
 
 	if (options->clean_cache) {

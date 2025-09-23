@@ -18,8 +18,6 @@
  */
 
 #include "nsxiv.h"
-#define INCLUDE_IMAGE_CONFIG
-#include "config.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -35,25 +33,38 @@
 
 enum { DEF_ANIM_DELAY = 75 };
 
-#define ZOOM_MIN (zoom_levels[0] / 100)
-#define ZOOM_MAX (zoom_levels[ARRLEN(zoom_levels) - 1] / 100)
+extern int cfg_image_slideshow_delay;
+extern int cfg_image_pan_fraction;
+extern int cfg_image_cc_steps;
+extern double cfg_image_gamma_max;
+extern double cfg_image_brightness_max;
+extern double cfg_image_contrast_max;
+extern int cfg_image_cache_size_mem_percentage;
+extern int cfg_image_cache_size_limit;
+extern int cfg_image_cache_size_fallback;
+
+extern float *cfg_zoom_levels;
+extern int num_zoom_levels;
+
+#define ZOOM_MIN (cfg_zoom_levels[0])
+#define ZOOM_MAX (cfg_zoom_levels[num_zoom_levels - 1])
 
 static int calc_cache_size(void)
 {
 	long cache, pages = -1, page_size = -1;
 
-	if (CACHE_SIZE_MEM_PERCENTAGE <= 0)
+	if (cfg_image_cache_size_mem_percentage <= 0)
 		return 0;
 #ifdef _SC_PHYS_PAGES /* _SC_PHYS_PAGES isn't POSIX */
 	pages = sysconf(_SC_PHYS_PAGES);
 	page_size = sysconf(_SC_PAGE_SIZE);
 #endif
 	if (pages < 0 || page_size < 0)
-		return CACHE_SIZE_FALLBACK;
-	cache = (pages / 100) * CACHE_SIZE_MEM_PERCENTAGE;
+		return cfg_image_cache_size_fallback;
+	cache = (pages / 100) * cfg_image_cache_size_mem_percentage;
 	cache *= page_size;
 
-	return MIN(cache, CACHE_SIZE_LIMIT);
+	return MIN(cache, cfg_image_cache_size_limit);
 }
 
 void img_init(img_t *img, win_t *win)
@@ -86,7 +97,7 @@ void img_init(img_t *img, win_t *win)
 	img_change_color_modifier(img, options->gamma, &img->gamma);
 
 	img->ss.on = options->slideshow > 0;
-	img->ss.delay = options->slideshow > 0 ? options->slideshow : SLIDESHOW_DELAY * 10u;
+	img->ss.delay = options->slideshow > 0 ? options->slideshow : cfg_image_slideshow_delay * 10u;
 }
 
 #if HAVE_LIBEXIF
@@ -528,6 +539,7 @@ bool img_fit_win(img_t *img, scalemode_t sm)
 bool img_zoom_to(img_t *img, float z)
 {
 	int x, y;
+
 	if (ZOOM_MIN <= z && z <= ZOOM_MAX) {
 		win_cursor_pos(img->win, &x, &y);
 		if (x < 0 || (unsigned int)x >= img->win->w ||
@@ -549,14 +561,15 @@ bool img_zoom_to(img_t *img, float z)
 
 bool img_zoom(img_t *img, int d)
 {
-	int i = d > 0 ? 0 : (int)ARRLEN(zoom_levels) - 1;
-	while (i >= 0 && i < (int)ARRLEN(zoom_levels) &&
-	       (d > 0 ? zoom_levels[i] / 100 <= img->zoom : zoom_levels[i] / 100 >= img->zoom))
+	int i = d > 0 ? 0 : num_zoom_levels - 1;
+	while (i >= 0 && i < num_zoom_levels &&
+	       (d > 0 ? cfg_zoom_levels[i] <= img->zoom : cfg_zoom_levels[i] >= img->zoom))
 	{
 		i += d;
 	}
-	i = MIN(MAX(i, 0), (int)ARRLEN(zoom_levels) - 1);
-	return img_zoom_to(img, zoom_levels[i] / 100);
+	i = MIN(MAX(i, 0), num_zoom_levels - 1);
+
+	return img_zoom_to(img, cfg_zoom_levels[i]);
 }
 
 bool img_pos(img_t *img, float x, float y)
@@ -587,7 +600,7 @@ static bool img_move(img_t *img, float dx, float dy)
 bool img_pan(img_t *img, direction_t dir, int d)
 {
 	/* d < 0: screen-wise
-	 * d = 0: 1/PAN_FRACTION of screen
+	 * d = 0: 1/pan_fraction of screen
 	 * d > 0: num of pixels
 	 */
 	float x, y;
@@ -595,8 +608,8 @@ bool img_pan(img_t *img, direction_t dir, int d)
 	if (d > 0) {
 		x = y = MAX(1, (float)d * img->zoom);
 	} else {
-		x = img->win->w / (d < 0 ? 1 : PAN_FRACTION);
-		y = img->win->h / (d < 0 ? 1 : PAN_FRACTION);
+		x = img->win->w / (d < 0 ? 1 : cfg_image_pan_fraction);
+		y = img->win->h / (d < 0 ? 1 : cfg_image_pan_fraction);
 	}
 
 	switch (dir) {
@@ -711,7 +724,7 @@ void img_toggle_antialias(img_t *img)
 
 static double steps_to_range(int d, double max, double offset)
 {
-	return offset + d * ((d <= 0 ? 1.0 : (max - 1.0)) / CC_STEPS);
+	return offset + d * ((d <= 0 ? 1.0 : (max - 1.0)) / cfg_image_cc_steps);
 }
 
 void img_update_color_modifiers(img_t *img)
@@ -720,18 +733,18 @@ void img_update_color_modifiers(img_t *img)
 	imlib_reset_color_modifier();
 
 	if (img->gamma != 0)
-		imlib_modify_color_modifier_gamma(steps_to_range(img->gamma, GAMMA_MAX, 1.0));
+		imlib_modify_color_modifier_gamma(steps_to_range(img->gamma, cfg_image_gamma_max, 1.0));
 	if (img->brightness != 0)
-		imlib_modify_color_modifier_brightness(steps_to_range(img->brightness, BRIGHTNESS_MAX, 0.0));
+		imlib_modify_color_modifier_brightness(steps_to_range(img->brightness, cfg_image_brightness_max, 0.0));
 	if (img->contrast != 0)
-		imlib_modify_color_modifier_contrast(steps_to_range(img->contrast, CONTRAST_MAX, 1.0));
+		imlib_modify_color_modifier_contrast(steps_to_range(img->contrast, cfg_image_contrast_max, 1.0));
 
 	img->dirty = true;
 }
 
 bool img_change_color_modifier(img_t *img, int d, int *target)
 {
-	int value = d == 0 ? 0 : MIN(MAX(*target + d, -CC_STEPS), CC_STEPS);
+	int value = d == 0 ? 0 : MIN(MAX(*target + d, -cfg_image_cc_steps), cfg_image_cc_steps);
 
 	if (*target == value)
 		return false;

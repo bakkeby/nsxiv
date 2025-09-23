@@ -155,8 +155,9 @@ typedef struct {
 
 typedef struct {
 	unsigned int mask;
-	KeySym ksym_or_button;
-	cmd_t cmd;
+	KeySym keysym;
+	cmd_f func;
+	appmode_t mode;
 	arg_t arg;
 } keymap_t;
 

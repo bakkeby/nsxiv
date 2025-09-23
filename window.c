@@ -18,8 +18,6 @@
  */
 
 #include "nsxiv.h"
-#define INCLUDE_WINDOW_CONFIG
-#include "config.h"
 #include "icon/data.h"
 
 #include <assert.h>
@@ -31,6 +29,22 @@
 #include <X11/Xatom.h>
 #include <X11/Xresource.h>
 #include <X11/cursorfont.h>
+
+extern int cfg_window_width;
+extern int cfg_window_height;
+extern int cfg_window_top_statusbar;
+
+/* colors and font can be overwritten via X resource properties.
+ * See nsxiv(1), X(7) section Resources and xrdb(1) for more information.
+ *                                X resource                   value (NULL == default) */
+static const char *WIN_BG[]   = { "Nsxiv.window.background",   "white" };
+static const char *WIN_FG[]   = { "Nsxiv.window.foreground",   "black" };
+static const char *MARK_FG[]  = { "Nsxiv.mark.foreground",      NULL };
+#if HAVE_LIBFONTS
+static const char *BAR_BG[]   = { "Nsxiv.bar.background",       NULL };
+static const char *BAR_FG[]   = { "Nsxiv.bar.foreground",       NULL };
+static const char *BAR_FONT[] = { "Nsxiv.bar.font",            "monospace-8" };
+#endif /* HAVE_LIBFONTS */
 
 #if HAVE_LIBFONTS
 #include "utf8.h"
@@ -168,7 +182,7 @@ void win_init(win_t *win)
 	win->bar.l.size = sizeof(lbuf) - UTF8_PADDING;
 	win->bar.r.size = sizeof(rbuf) - UTF8_PADDING;
 	win->bar.h = options->hide_bar ? 0 : barheight;
-	win->bar.top = TOP_STATUSBAR;
+	win->bar.top = cfg_window_top_statusbar;
 #endif /* HAVE_LIBFONTS */
 
 	XrmDestroyDatabase(db);
@@ -219,11 +233,11 @@ void win_open(win_t *win)
 	if (gmask & WidthValue)
 		sizehints.flags |= USSize;
 	else
-		win->w = WIN_WIDTH;
+		win->w = cfg_window_width;
 	if (gmask & HeightValue)
 		sizehints.flags |= USSize;
 	else
-		win->h = WIN_HEIGHT;
+		win->h = cfg_window_height;
 	if (gmask & XValue) {
 		if (gmask & XNegative) {
 			win->x += e->scrw - win->w;
