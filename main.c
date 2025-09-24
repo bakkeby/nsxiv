@@ -18,7 +18,6 @@
  */
 
 #include "nsxiv.h"
-#define INCLUDE_MAPPINGS_CONFIG
 #include "commands.h"
 
 #include <assert.h>

@@ -814,6 +814,7 @@ parse_function(const char *string, appmode_t *mode)
 		{ "scroll_screen",      cg_scroll_screen,      MODE_ALL },
 		{ "switch_mode",        cg_switch_mode,        MODE_ALL },
 		{ "toggle_bar",         cg_toggle_bar,         MODE_ALL },
+		{ "toggle_invert",      cg_toggle_invert,      MODE_ALL },
 		{ "toggle_fullscreen",  cg_toggle_fullscreen,  MODE_ALL },
 		{ "toggle_image_mark",  cg_toggle_image_mark,  MODE_ALL },
 		{ "unmark_all",         cg_unmark_all,         MODE_ALL },

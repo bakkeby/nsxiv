@@ -86,18 +86,6 @@ bool cg_switch_mode(arg_t _)
 	return true;
 }
 
-bool cg_toggle_fullscreen(arg_t _)
-{
-	win_toggle_fullscreen(&win);
-	/* redraw after next ConfigureNotify event */
-	set_timeout(redraw, TO_REDRAW_RESIZE, false);
-	if (mode == MODE_IMAGE)
-		img.checkpan = img.dirty = true;
-	else
-		tns.dirty = true;
-	return false;
-}
-
 bool cg_toggle_bar(arg_t _)
 {
 	win_toggle_bar(&win);
@@ -110,6 +98,27 @@ bool cg_toggle_bar(arg_t _)
 	else
 		close_info();
 	return true;
+}
+
+bool cg_toggle_invert(arg_t _)
+{
+	img.invert = !img.invert;
+	img_update_color_modifiers(&img);
+	if (mode == MODE_THUMB)
+		tns.dirty = true;
+	return true;
+}
+
+bool cg_toggle_fullscreen(arg_t _)
+{
+	win_toggle_fullscreen(&win);
+	/* redraw after next ConfigureNotify event */
+	set_timeout(redraw, TO_REDRAW_RESIZE, false);
+	if (mode == MODE_IMAGE)
+		img.checkpan = img.dirty = true;
+	else
+		tns.dirty = true;
+	return false;
 }
 
 bool cg_prefix_external(arg_t _)
