@@ -30,6 +30,7 @@
 
 #include <Imlib2.h>
 #include <X11/Xlib.h>
+#include "lib/func.h"
 
 #if !defined(IMLIB2_VERSION) || IMLIB2_VERSION < 11100
 	#error "Imlib2 version too old, at least v1.11.0 required"
@@ -43,6 +44,8 @@
 
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define WRAP(A, MIN, MAX)       ((A) < (MIN) ? (MAX) : ((A) > (MAX) ? (MIN) : (A)))
+#define CLAMP(A, MIN, MAX)      ((A) < (MIN) ? (MIN) : ((A) > (MAX) ? (MAX) : (A)))
 #define ABS(a) ((a) > 0 ? (a) : -(a))
 
 #define ARRLEN(a) (sizeof(a) / sizeof((a)[0]))

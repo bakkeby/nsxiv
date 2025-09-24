@@ -300,14 +300,19 @@ bool ci_navigate(arg_t n)
 	if (prefix > 0)
 		n *= prefix;
 	n += fileidx;
-	n = MAX(0, MIN(n, filecnt - 1));
+
+	if (enabled(ImageModeCycle)) {
+		n = WRAP(n, 0, filecnt - 1);
+	} else {
+		n = CLAMP(n, 0, filecnt - 1);
+	}
 
 	if (n != fileidx) {
 		load_image(n);
 		return true;
-	} else {
-		return false;
 	}
+
+	return false;
 }
 
 bool ci_cursor_navigate(arg_t _)

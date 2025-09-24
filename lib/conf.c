@@ -22,6 +22,7 @@ int cfg_options_tns_blacklist = 0;
 char *cfg_options_tns_filters = 0;
 int *cfg_thumb_sizes = NULL;
 int cfg_thumb_sizes_idx = 0;
+uint64_t settings = 0;
 keymap_t *cfg_keys = NULL;
 button_t *cfg_buttons_img = NULL;
 button_t *cfg_buttons_tns = NULL;
@@ -99,7 +100,7 @@ load_config(void)
 		exit(1);
 	}
 
-	// load_functionality(&cfg);
+	load_functionality_settings(&cfg);
 	load_window_settings(&cfg);
 	load_image_settings(&cfg);
 	load_keybindings_settings(&cfg);
@@ -109,8 +110,6 @@ load_config(void)
 	load_main_settings(&cfg);
 	load_command_settings(&cfg);
 
-	// load_fallback_config();
-	// generate_resource_strings();
 	config_destroy(&cfg);
 }
 
@@ -588,6 +587,22 @@ load_options_settings(const config_t *cfg)
 	} else if (config_lookup_string(cfg, "options.thumbnail_whitelisted_directories", &string)) {
 		cfg_options_tns_filters = strdup(string);
 		cfg_options_tns_blacklist = 0;
+	}
+}
+
+void
+load_functionality_settings(const config_t *cfg)
+{
+	int i, enabled;
+
+	const config_setting_t *func_t = config_lookup(cfg, "functionality");
+	if (!func_t)
+		return;
+
+	for (i = 0; functionality_names[i].name != NULL; i++) {
+		if (config_setting_lookup_sloppy_bool(func_t, functionality_names[i].name, &enabled)) {
+			setenabled(functionality_names[i].value, enabled);
+		}
 	}
 }
 

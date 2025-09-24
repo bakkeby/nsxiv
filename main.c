@@ -573,8 +573,10 @@ void reset_cursor(void)
 			if (timeouts[i].handler == reset_cursor) {
 				if (timeouts[i].active) {
 					c = nav_button();
-					c = MAX(fileidx > 0 ? 0 : 1, c);
-					c = MIN(fileidx + 1 < filecnt ? 2 : 1, c);
+					if (disabled(ImageModeCycle)) {
+						c = MAX(fileidx > 0 ? 0 : 1, c);
+						c = MIN(fileidx + 1 < filecnt ? 2 : 1, c);
+					}
 					cursor = cfg_image_cursor[c];
 				}
 				break;
