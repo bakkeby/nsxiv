@@ -83,6 +83,12 @@ to NAME.
 .BI "\-n, \-\-start\-at " NUM
 Start at picture number NUM.
 .TP
+.B "\-O, \-\-dmenu"
+Enables dmenu-mode which will print the filename of an image as soon as it is marked.
+Note that images cannot be unmarked in this mode, and reverse marking is also disabled.
+
+Once a filename has been printed it will not be printed again.
+.TP
 .B "\-o, \-\-stdout"
 Write list of all marked files to standard output when quitting. In combination
 with

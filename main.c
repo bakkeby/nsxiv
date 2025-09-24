@@ -418,6 +418,13 @@ void load_image(int new)
 bool mark_image(int n, bool on)
 {
 	markidx = n;
+
+	if (options->dmenu && !(files[n].flags & FF_MARK)) {
+		on = true;
+		printf("%s\n", files[n].name);
+		fflush(stdout);
+	}
+
 	if (!!(files[n].flags & FF_MARK) != on) {
 		files[n].flags ^= FF_MARK;
 		markcnt += on ? 1 : -1;

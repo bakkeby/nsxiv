@@ -539,6 +539,7 @@ parse_keysym(const char *string)
 	static const glyphmap_t glyphmap[] = {
 		{ "Escape", XK_Escape },
 		{ "Esc", XK_Escape },
+		{ "Enter", XK_Return },
 		{ " ", XK_space },
 		{ "!", XK_exclam },
 		{ "\"", XK_quotedbl },

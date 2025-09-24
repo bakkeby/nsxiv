@@ -187,6 +187,9 @@ bool cg_reverse_marks(arg_t _)
 {
 	int i;
 
+	if (options->dmenu)
+		return false;
+
 	for (i = 0; i < filecnt; i++) {
 		files[i].flags ^= FF_MARK;
 		markcnt += files[i].flags & FF_MARK ? 1 : -1;
@@ -209,6 +212,9 @@ bool cg_mark_range(arg_t _)
 bool cg_unmark_all(arg_t _)
 {
 	int i;
+
+	if (options->dmenu)
+		return false;
 
 	for (i = 0; i < filecnt; i++)
 		files[i].flags &= ~FF_MARK;
@@ -443,7 +449,7 @@ bool ct_drag_mark_image(arg_t _)
 
 	if ((sel = tns_translate(&tns, xbutton_ev->x, xbutton_ev->y)) >= 0) {
 		XEvent e;
-		bool on = !(files[sel].flags & FF_MARK);
+		bool on = (options->dmenu || !(files[sel].flags & FF_MARK));
 
 		while (true) {
 			if (sel >= 0 && mark_image(sel, on))

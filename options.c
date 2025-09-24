@@ -106,6 +106,7 @@ void parse_options(int argc, char **argv)
 		{ "name",           'N',     OPTPARSE_REQUIRED },
 		{ "class",       OPT_CLASS,  OPTPARSE_REQUIRED },
 		{ "start-at",       'n',     OPTPARSE_REQUIRED },
+		{ "dmenu",          'O',     OPTPARSE_NONE },
 		{ "stdout",         'o',     OPTPARSE_NONE },
 		{ "private",        'p',     OPTPARSE_NONE },
 		{ "quiet",          'q',     OPTPARSE_NONE },
@@ -137,6 +138,7 @@ void parse_options(int argc, char **argv)
 	options = &_options;
 	_options.from_stdin = false;
 	_options.to_stdout = false;
+	_options.dmenu = false;
 	_options.using_null = false;
 	_options.recursive = false;
 	_options.startnum = 0;
@@ -231,6 +233,9 @@ void parse_options(int argc, char **argv)
 			/* fallthrough */
 		case 'N':
 			_options.res_name = op.optarg;
+			break;
+		case 'O':
+			_options.dmenu = true;
 			break;
 		case 'o':
 			_options.to_stdout = true;
