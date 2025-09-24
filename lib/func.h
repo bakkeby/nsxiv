@@ -9,7 +9,7 @@ const char *getnamebyfunc(const uint64_t functionality);
 
 static const uint64_t
 	ImageModeCycle = 0x1,
-	FuncPlaceholder0x2 = 0x2,
+	SquareThumbs = 0x2,
 	FuncPlaceholder0x4 = 0x4,
 	FuncPlaceholder0x8 = 0x8,
 	FuncPlaceholder0x10 = 0x10,
@@ -82,6 +82,7 @@ struct nv {
 
 static const struct nv functionality_names[] = {
 	map(ImageModeCycle),
+	map(SquareThumbs),
 	{ NULL, 0 }
 };
 
