@@ -265,6 +265,36 @@ bool cg_change_contrast(arg_t d)
 	return change_color_modifier(d, &img.contrast);
 }
 
+bool cg_dmenu_search(arg_t _)
+{
+	char output[4096];
+	int i, rfd, wfd, goto_img = -1;
+	ssize_t n;
+
+	if (spawn(&rfd, &wfd, 0, (char **)cfg_get_command("dmenu_search_cmd")) < 0)
+		return false;
+	for (i = 0; i < filecnt; ++i) {
+		dprintf(wfd, "%s\n", files[i].name);
+	}
+	close(wfd);
+	if ((n = read(rfd, output, sizeof output - 1)) > 0) {
+		char *e = memchr(output, '\n', n);
+		if (e != NULL)
+			*e = '\0';
+		else
+			output[n] = '\0';
+		for (i = 0; i < filecnt; ++i) {
+			if (STREQ(output, files[i].name)) {
+				goto_img = i;
+				break;
+			}
+		}
+	}
+	close(rfd);
+
+	return navigate_to(goto_img);
+}
+
 bool ci_navigate(arg_t n)
 {
 	if (prefix > 0)

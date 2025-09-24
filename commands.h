@@ -6,6 +6,7 @@
 bool cg_change_gamma(arg_t);
 bool cg_change_brightness(arg_t);
 bool cg_change_contrast(arg_t);
+bool cg_dmenu_search(arg_t _);
 bool cg_first(arg_t);
 bool cg_mark_range(arg_t);
 bool cg_n_or_last(arg_t);

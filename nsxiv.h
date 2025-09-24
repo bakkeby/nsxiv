@@ -461,7 +461,7 @@ void reset_cursor(void);
 void animate(void);
 void slideshow(void);
 void clear_resize(void);
-
+void *cfg_get_command(const char *string);
 void remove_file(int, bool);
 void set_timeout(timeout_f, int, bool);
 void reset_timeout(timeout_f);

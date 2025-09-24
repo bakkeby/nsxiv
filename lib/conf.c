@@ -28,6 +28,8 @@ button_t *cfg_buttons_tns = NULL;
 KeySym cfg_keyhandler_abort = XK_Escape;
 int cfg_navigation_width = 33;
 int cfg_navigation_width_is_rel = 1;
+static Command *cfg_commands = NULL;
+char nsxiv_window_id[64]; /* will be set to nsxiv's window ID */
 
 static const cursor_t cfg_image_cursor[3] = {
 	CURSOR_LEFT, CURSOR_ARROW, CURSOR_RIGHT
@@ -36,6 +38,7 @@ static const cursor_t cfg_image_cursor[3] = {
 int num_zoom_levels = 0;
 int num_thumb_sizes = 0;
 int num_key_bindings = 0;
+int num_commands = 0;
 int num_button_img_bindings = 0;
 int num_button_tns_bindings = 0;
 
@@ -48,8 +51,22 @@ typedef struct {
 void
 cleanup_config(void)
 {
+	int i, j;
 	free(cfg_zoom_levels);
 	free(cfg_options_tns_filters);
+
+	/* Cleanup commands */
+	if (cfg_commands != NULL) {
+		for (i = 0; i < num_commands; i++) {
+			free(cfg_commands[i].name);
+			for (j = 0; cfg_commands[i].argv[j] != NULL; j++) {
+				if (cfg_commands[i].argv[j] == nsxiv_window_id)
+					continue;
+				free(cfg_commands[i].argv[j]);
+			}
+		}
+		free(cfg_commands);
+	}
 }
 
 void
@@ -90,6 +107,7 @@ load_config(void)
 	load_options_settings(&cfg);
 	load_thumbnail_settings(&cfg);
 	load_main_settings(&cfg);
+	load_command_settings(&cfg);
 
 	// load_fallback_config();
 	// generate_resource_strings();
@@ -512,6 +530,51 @@ load_main_settings(const config_t *cfg)
 }
 
 void
+load_command_settings(const config_t *cfg)
+{
+	int i, j, num_cmd_elements;
+	const char *string;
+	config_setting_t *commands_list, *command_entry, *command_t;
+	Command *command;
+
+	commands_list = config_lookup(cfg, "commands");
+	if (!commands_list || !config_setting_is_list(commands_list))
+		return;
+
+	num_commands = config_setting_length(commands_list);
+	if (!num_commands)
+		return;
+
+	cfg_commands = ecalloc(num_commands, sizeof(Command));
+	for (i = 0; i < num_commands; i++) {
+		command = &cfg_commands[i];
+		command->name = NULL;
+		command->argv = NULL;
+
+		command_entry = config_setting_get_elem(commands_list, i);
+		config_setting_lookup_strdup(command_entry, "name", &command->name);
+
+		command_t = config_setting_lookup(command_entry, "command");
+		num_cmd_elements = config_setting_length(command_t);
+		command->argv = ecalloc(num_cmd_elements + 1, sizeof(char*));
+
+		for (j = 0; j < num_cmd_elements; j++) {
+			string = config_setting_get_string_elem(command_t, j);
+			if (!strcasecmp(string, "%WINDOW%")) {
+				command->argv[j] = nsxiv_window_id;
+			} else {
+				command->argv[j] = strdup(string);
+			}
+		}
+		command->argv[j + 1] = NULL;
+
+		if (command->name == NULL || command->argv == NULL) {
+			fprintf(stderr, "Warning: config found incomplete command at line %d\n", config_setting_source_line(command_entry));
+		}
+	}
+}
+
+void
 load_options_settings(const config_t *cfg)
 {
 	const char *string;
@@ -802,6 +865,7 @@ parse_function(const char *string, appmode_t *mode)
 		{ "change_gamma",       cg_change_gamma,       MODE_ALL },
 		{ "change_brightness",  cg_change_brightness,  MODE_ALL },
 		{ "change_contrast",    cg_change_contrast,    MODE_ALL },
+		{ "dmenu_search",       cg_dmenu_search,       MODE_ALL },
 		{ "first",              cg_first,              MODE_ALL },
 		{ "mark_range",         cg_mark_range,         MODE_ALL },
 		{ "n_or_last",          cg_n_or_last,          MODE_ALL },
@@ -859,6 +923,20 @@ parse_function(const char *string, appmode_t *mode)
 }
 
 #define map(S, I) if (!strcasecmp(string, S)) { return I; };
+
+void *
+cfg_get_command(const char *string)
+{
+	int i;
+
+	for (i = 0; i < num_commands; i++) {
+		if (!strcasecmp(string, cfg_commands[i].name)) {
+			return cfg_commands[i].argv;
+		}
+	}
+
+	return NULL;
+}
 
 /* This attempts to parse function specific constants.
  * If a constant is found then that will be stored in the passed pointer,

@@ -101,6 +101,11 @@ static struct {
 	{ clear_resize },
 };
 
+typedef struct {
+	char *name;  /* string key */
+	char **argv; /* pointer to execv argument list */
+} Command;
+
 #include "lib/include.c"
 
 /*
@@ -999,6 +1004,7 @@ int main(int argc, char *argv[])
 	}
 	win_open(&win);
 	win_set_cursor(&win, CURSOR_WATCH);
+	snprintf(nsxiv_window_id, sizeof nsxiv_window_id, "0x%.8lX", win.xwin);
 
 	atexit(cleanup);
 

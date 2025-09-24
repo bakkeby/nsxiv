@@ -1,5 +1,6 @@
 static void cleanup_config(void);
 static void load_config(void);
+static void load_command_settings(const config_t *cfg);
 static void load_image_settings(const config_t *cfg);
 static void load_button_bindings_settings(const config_t *cfg);
 static void load_button_settings_for(const config_setting_t *bindings_t, button_t **buttons, int *num_button_bindings);
