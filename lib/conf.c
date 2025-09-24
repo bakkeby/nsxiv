@@ -885,6 +885,7 @@ parse_function(const char *string, appmode_t *mode)
 		{ "mark_range",         cg_mark_range,         MODE_ALL },
 		{ "n_or_last",          cg_n_or_last,          MODE_ALL },
 		{ "navigate_marked",    cg_navigate_marked,    MODE_ALL },
+		{ "nav_dir",            cg_nav_dir,            MODE_ALL },
 		{ "prefix_external",    cg_prefix_external,    MODE_ALL },
 		{ "quit",               cg_quit,               MODE_ALL },
 		{ "pick_quit",          cg_pick_quit,          MODE_ALL },

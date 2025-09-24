@@ -11,6 +11,7 @@ bool cg_first(arg_t);
 bool cg_mark_range(arg_t);
 bool cg_n_or_last(arg_t);
 bool cg_navigate_marked(arg_t);
+bool cg_nav_dir(arg_t);
 bool cg_prefix_external(arg_t);
 bool cg_quit(arg_t);
 bool cg_pick_quit(arg_t);
