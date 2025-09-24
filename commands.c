@@ -561,3 +561,33 @@ bool ct_select(arg_t _)
 
 	return dirty;
 }
+
+/* NOTE(NRK): could be faster with __builtin_clz(), but i've opted for portibility instead.
+ * ref: https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
+ */
+static unsigned int next_power_of_2_modmask(unsigned int v)
+{
+	--v;
+	v |= v >> 1;
+	v |= v >> 2;
+	v |= v >> 4;
+	v |= v >> 8;
+	v |= v >> 16;
+	return v;
+}
+
+/* Rejects any baised samples with the bitmask approach described in:
+ * https://www.pcg-random.org/posts/bounded-rands.html
+ */
+bool cg_random_image(arg_t _)
+{
+	if (filecnt >= 2) {
+		int n;
+		unsigned int mask = next_power_of_2_modmask(filecnt);
+		do {
+			n = rand() & mask;
+		} while (n >= filecnt || n == fileidx);
+		return navigate_to(n);
+	}
+	return false;
+}

@@ -889,6 +889,7 @@ parse_function(const char *string, appmode_t *mode)
 		{ "prefix_external",    cg_prefix_external,    MODE_ALL },
 		{ "quit",               cg_quit,               MODE_ALL },
 		{ "pick_quit",          cg_pick_quit,          MODE_ALL },
+		{ "random_image",       cg_random_image,       MODE_ALL },
 		{ "reload_image",       cg_reload_image,       MODE_ALL },
 		{ "remove_image",       cg_remove_image,       MODE_ALL },
 		{ "reverse_marks",      cg_reverse_marks,      MODE_ALL },

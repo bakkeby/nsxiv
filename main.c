@@ -41,7 +41,7 @@
 #include <X11/keysym.h>
 #include "lib/include.h"
 
-#define MODMASK(mask) (mask & ~(LockMask) && (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
+#define MODMASK(mask) (mask & ~(LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define BAR_SEP "  "
 
 #define TV_DIFF(t1,t2) (((t1)->tv_sec  - (t2)->tv_sec ) * 1000 + \
@@ -913,6 +913,7 @@ int main(int argc, char *argv[])
 	setup_signal(SIGCHLD, SIG_DFL, SA_RESTART | SA_NOCLDSTOP | SA_NOCLDWAIT);
 	setup_signal(SIGPIPE, SIG_IGN, 0);
 
+	srand(time(NULL));
 	setlocale(LC_COLLATE, "");
 
 	load_config();

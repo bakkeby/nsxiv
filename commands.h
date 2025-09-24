@@ -15,6 +15,7 @@ bool cg_nav_dir(arg_t);
 bool cg_prefix_external(arg_t);
 bool cg_quit(arg_t);
 bool cg_pick_quit(arg_t);
+bool cg_random_image(arg_t);
 bool cg_reload_image(arg_t);
 bool cg_remove_image(arg_t);
 bool cg_reverse_marks(arg_t);
