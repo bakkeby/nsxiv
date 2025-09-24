@@ -111,6 +111,7 @@ typedef struct {
 	const char *name; /* as given by user */
 	const char *path; /* always absolute, result of realpath(3) */
 	fileflags_t flags;
+	float zoom;
 } fileinfo_t;
 
 /* timeouts in milliseconds: */
