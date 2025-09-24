@@ -494,7 +494,11 @@ static void update_info(void)
 			bar_put(r, "Loading... %0*d | ", fw, tns.loadnext + 1);
 		else if (tns.initnext < filecnt)
 			bar_put(r, "Caching... %0*d | ", fw, tns.initnext + 1);
-		bar_put(r, "%s%0*d/%d", mark, fw, fileidx + 1, filecnt);
+		if (enabled(MarkCount)) {
+			bar_put(r, "%s%d %0*d/%d", mark, markcnt, fw, fileidx + 1, filecnt);
+		} else {
+			bar_put(r, "%s%0*d/%d", mark, fw, fileidx + 1, filecnt);
+		}
 		if (info.ft.err)
 			strncpy(l->buf, files[fileidx].name, l->size);
 	} else {
