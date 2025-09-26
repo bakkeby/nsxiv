@@ -252,6 +252,7 @@ struct opt {
 	bool dmenu;
 	bool using_null;
 	bool recursive;
+	bool include_hidden;
 	int filecnt;
 	int startnum;
 

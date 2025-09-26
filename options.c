@@ -101,6 +101,7 @@ void parse_options(int argc, char **argv)
 		{ "fullscreen",     'f',     OPTPARSE_NONE },
 		{ "gamma",          'G',     OPTPARSE_REQUIRED },
 		{ "geometry",       'g',     OPTPARSE_REQUIRED },
+		{ "hidden",         'H',     OPTPARSE_OPTIONAL },
 		{ "help",           'h',     OPTPARSE_NONE },
 		{ "stdin",          'i',     OPTPARSE_NONE },
 		{ "name",           'N',     OPTPARSE_REQUIRED },
@@ -141,6 +142,7 @@ void parse_options(int argc, char **argv)
 	_options.dmenu = false;
 	_options.using_null = false;
 	_options.recursive = false;
+	_options.include_hidden = false;
 	_options.startnum = 0;
 
 	_options.scalemode = SCALE_DOWN;
@@ -215,6 +217,9 @@ void parse_options(int argc, char **argv)
 			break;
 		case 'g':
 			_options.geometry = op.optarg;
+			break;
+		case 'H':
+			_options.include_hidden = parse_optional_no("hidden", op.optarg);
 			break;
 		case 'h':
 			print_usage(stdout);
