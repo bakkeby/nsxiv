@@ -40,10 +40,10 @@ window.o: icon/data.h utf8.h
 
 version.h: config.mk .git/index
 	@v="$$(git describe 2>/dev/null || true)"; \
-	payload=$$(printf '#define VERSION "%s"\n' "$${v:-$(VERSION)}"); \
-	if ! printf '%s' "$$payload" | cmp -s - "$@" 2>/dev/null; then \
+	payload=$$(printf '#define VERSION "%s"' "$${v:-$(VERSION)}"); \
+	if ! printf '%s\n' "$$payload" | cmp -s - "$@" 2>/dev/null; then \
 		echo "GEN $@"; \
-		printf '%s' "$$payload" >"$@"; \
+		printf '%s\n' "$$payload" >"$@"; \
 	fi
 
 
