@@ -255,6 +255,7 @@ struct opt {
 	bool include_hidden;
 	int filecnt;
 	int startnum;
+	bool assume_files;
 
 	/* image: */
 	scalemode_t scalemode;

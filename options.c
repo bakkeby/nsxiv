@@ -89,11 +89,13 @@ void parse_options(int argc, char **argv)
 		OPT_CLASS,
 		OPT_CA,
 		OPT_CD,
-		OPT_UC
+		OPT_UC,
+		OPT_AF
 	};
 	static const struct optparse_long longopts[] = {
 		{ "framerate",      'A',     OPTPARSE_REQUIRED },
 		{ "animate",        'a',     OPTPARSE_NONE },
+		{ "assume-files",  OPT_AF,   OPTPARSE_NONE },
 		{ "no-bar",         'b',     OPTPARSE_NONE },
 		{ "bar",          OPT_BAR,   OPTPARSE_NONE },
 		{ "clean-cache",    'c',     OPTPARSE_NONE },
@@ -144,6 +146,7 @@ void parse_options(int argc, char **argv)
 	_options.recursive = false;
 	_options.include_hidden = false;
 	_options.startnum = 0;
+	_options.assume_files = false;
 
 	_options.scalemode = SCALE_DOWN;
 	_options.zoom = 1.0;
@@ -193,6 +196,9 @@ void parse_options(int argc, char **argv)
 			break;
 		case 'a':
 			_options.animate = true;
+			break;
+		case OPT_AF:
+			_options.assume_files = true;
 			break;
 		case 'b': case OPT_BAR:
 			_options.hide_bar = (opt == 'b');
