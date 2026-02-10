@@ -10,16 +10,16 @@ lib_exif_0 =
 lib_exif_1 = -lexif
 
 nsxiv_cppflags = -D_XOPEN_SOURCE=700 \
-  -DHAVE_LIBEXIF=$(HAVE_LIBEXIF) -DHAVE_LIBFONTS=$(HAVE_LIBFONTS) \
-  -DHAVE_INOTIFY=$(HAVE_INOTIFY) $(inc_fonts_$(HAVE_LIBFONTS)) \
-  $(CPPFLAGS)
+	-DHAVE_LIBEXIF=$(HAVE_LIBEXIF) -DHAVE_LIBFONTS=$(HAVE_LIBFONTS) \
+	-DHAVE_INOTIFY=$(HAVE_INOTIFY) $(inc_fonts_$(HAVE_LIBFONTS)) \
+	$(CPPFLAGS)
 
 nsxiv_ldlibs = -lImlib2 -lX11 \
-  $(lib_exif_$(HAVE_LIBEXIF)) $(lib_fonts_$(HAVE_LIBFONTS)) \
-  $(LDLIBS)
+	$(lib_exif_$(HAVE_LIBEXIF)) $(lib_fonts_$(HAVE_LIBFONTS)) \
+	$(LDLIBS)
 
 objs = autoreload.o commands.o image.o main.o options.o \
-  thumbs.o util.o window.o
+	thumbs.o util.o window.o
 
 .SUFFIXES:
 .SUFFIXES: .c .o
@@ -39,9 +39,13 @@ options.o: version.h optparse.h
 window.o: icon/data.h utf8.h
 
 version.h: config.mk .git/index
-	@echo "GEN $@"
-	v="$$(git describe 2>/dev/null || true)"; \
-	echo "#define VERSION \"$${v:-$(VERSION)}\"" >$@
+	@v="$$(git describe 2>/dev/null || true)"; \
+	payload=$$(printf '#define VERSION "%s"\n' "$${v:-$(VERSION)}"); \
+	if ! printf '%s' "$$payload" | cmp -s - "$@" 2>/dev/null; then \
+		echo "GEN $@"; \
+		printf '%s' "$$payload" >"$@"; \
+	fi
+
 
 .git/index:
 
