@@ -28,12 +28,12 @@ there may be more changes. Please use `git log` to view them.
 
   * Fix rebuilding `options.o` every time on non-git sources \[581\]
 
-\[532\]: https://codeberg.org/nsxiv/nsxiv/pulls/532
-\[536\]: https://codeberg.org/nsxiv/nsxiv/pulls/536
-\[575\]: https://codeberg.org/nsxiv/nsxiv/pulls/575
-\[580\]: https://codeberg.org/nsxiv/nsxiv/pulls/580
-\[581\]: https://codeberg.org/nsxiv/nsxiv/pulls/581
-\[585\]: https://codeberg.org/nsxiv/nsxiv/pulls/585
+\[532\]: https://codeberg.org/nsxiv/nsxiv/pulls/532<br>
+\[536\]: https://codeberg.org/nsxiv/nsxiv/pulls/536<br>
+\[575\]: https://codeberg.org/nsxiv/nsxiv/pulls/575<br>
+\[580\]: https://codeberg.org/nsxiv/nsxiv/pulls/580<br>
+\[581\]: https://codeberg.org/nsxiv/nsxiv/pulls/581<br>
+\[585\]: https://codeberg.org/nsxiv/nsxiv/pulls/585<br>
 
 - - -
 
@@ -68,20 +68,20 @@ there may be more changes. Please use `git log` to view them.
     the thumbnail area \[517\]
   * Fix exiv2 argument order in key-handler example \[518\]
 
-\[461\]: https://codeberg.org/nsxiv/nsxiv/pulls/461
-\[481\]: https://codeberg.org/nsxiv/nsxiv/pulls/481
-\[489\]: https://codeberg.org/nsxiv/nsxiv/pulls/489
-\[490\]: https://codeberg.org/nsxiv/nsxiv/pulls/490
-\[493\]: https://codeberg.org/nsxiv/nsxiv/pulls/493
-\[498\]: https://codeberg.org/nsxiv/nsxiv/pulls/498
-\[501\]: https://codeberg.org/nsxiv/nsxiv/pulls/501
-\[502\]: https://codeberg.org/nsxiv/nsxiv/pulls/502
-\[503\]: https://codeberg.org/nsxiv/nsxiv/pulls/503
-\[510\]: https://codeberg.org/nsxiv/nsxiv/pulls/510
-\[515\]: https://codeberg.org/nsxiv/nsxiv/pulls/515
-\[517\]: https://codeberg.org/nsxiv/nsxiv/pulls/517
-\[518\]: https://codeberg.org/nsxiv/nsxiv/pulls/518
-\[521\]: https://codeberg.org/nsxiv/nsxiv/pulls/521
+\[461\]: https://codeberg.org/nsxiv/nsxiv/pulls/461<br>
+\[481\]: https://codeberg.org/nsxiv/nsxiv/pulls/481<br>
+\[489\]: https://codeberg.org/nsxiv/nsxiv/pulls/489<br>
+\[490\]: https://codeberg.org/nsxiv/nsxiv/pulls/490<br>
+\[493\]: https://codeberg.org/nsxiv/nsxiv/pulls/493<br>
+\[498\]: https://codeberg.org/nsxiv/nsxiv/pulls/498<br>
+\[501\]: https://codeberg.org/nsxiv/nsxiv/pulls/501<br>
+\[502\]: https://codeberg.org/nsxiv/nsxiv/pulls/502<br>
+\[503\]: https://codeberg.org/nsxiv/nsxiv/pulls/503<br>
+\[510\]: https://codeberg.org/nsxiv/nsxiv/pulls/510<br>
+\[515\]: https://codeberg.org/nsxiv/nsxiv/pulls/515<br>
+\[517\]: https://codeberg.org/nsxiv/nsxiv/pulls/517<br>
+\[518\]: https://codeberg.org/nsxiv/nsxiv/pulls/518<br>
+\[521\]: https://codeberg.org/nsxiv/nsxiv/pulls/521<br>
 
 - - -
 
@@ -117,25 +117,25 @@ there may be more changes. Please use `git log` to view them.
   * Memory leak in `win_draw_bar` \[444\]
   * Thumbnail leak when removing the last file \[423\]
 
-\[423\]: https://codeberg.org/nsxiv/nsxiv/pulls/423
-\[427\]: https://codeberg.org/nsxiv/nsxiv/pulls/427
-\[428\]: https://codeberg.org/nsxiv/nsxiv/pulls/428
-\[432\]: https://codeberg.org/nsxiv/nsxiv/pulls/432
-\[435\]: https://codeberg.org/nsxiv/nsxiv/pulls/435
-\[437\]: https://codeberg.org/nsxiv/nsxiv/pulls/437
-\[438\]: https://codeberg.org/nsxiv/nsxiv/pulls/438
-\[440\]: https://codeberg.org/nsxiv/nsxiv/pulls/440
-\[444\]: https://codeberg.org/nsxiv/nsxiv/pulls/444
-\[445\]: https://codeberg.org/nsxiv/nsxiv/pulls/445
-\[446\]: https://codeberg.org/nsxiv/nsxiv/pulls/446
-\[447\]: https://codeberg.org/nsxiv/nsxiv/pulls/447
-\[453\]: https://codeberg.org/nsxiv/nsxiv/pulls/453
-\[455\]: https://codeberg.org/nsxiv/nsxiv/pulls/455
-\[459\]: https://codeberg.org/nsxiv/nsxiv/pulls/459
-\[460\]: https://codeberg.org/nsxiv/nsxiv/pulls/460
-\[462\]: https://codeberg.org/nsxiv/nsxiv/pulls/462
-\[467\]: https://codeberg.org/nsxiv/nsxiv/pulls/467
-\[477\]: https://codeberg.org/nsxiv/nsxiv/pulls/477
+\[423\]: https://codeberg.org/nsxiv/nsxiv/pulls/423<br>
+\[427\]: https://codeberg.org/nsxiv/nsxiv/pulls/427<br>
+\[428\]: https://codeberg.org/nsxiv/nsxiv/pulls/428<br>
+\[432\]: https://codeberg.org/nsxiv/nsxiv/pulls/432<br>
+\[435\]: https://codeberg.org/nsxiv/nsxiv/pulls/435<br>
+\[437\]: https://codeberg.org/nsxiv/nsxiv/pulls/437<br>
+\[438\]: https://codeberg.org/nsxiv/nsxiv/pulls/438<br>
+\[440\]: https://codeberg.org/nsxiv/nsxiv/pulls/440<br>
+\[444\]: https://codeberg.org/nsxiv/nsxiv/pulls/444<br>
+\[445\]: https://codeberg.org/nsxiv/nsxiv/pulls/445<br>
+\[446\]: https://codeberg.org/nsxiv/nsxiv/pulls/446<br>
+\[447\]: https://codeberg.org/nsxiv/nsxiv/pulls/447<br>
+\[453\]: https://codeberg.org/nsxiv/nsxiv/pulls/453<br>
+\[455\]: https://codeberg.org/nsxiv/nsxiv/pulls/455<br>
+\[459\]: https://codeberg.org/nsxiv/nsxiv/pulls/459<br>
+\[460\]: https://codeberg.org/nsxiv/nsxiv/pulls/460<br>
+\[462\]: https://codeberg.org/nsxiv/nsxiv/pulls/462<br>
+\[467\]: https://codeberg.org/nsxiv/nsxiv/pulls/467<br>
+\[477\]: https://codeberg.org/nsxiv/nsxiv/pulls/477<br>
 
 - - -
 
@@ -167,23 +167,23 @@ there may be more changes. Please use `git log` to view them.
   * Wrong slideshow length on animated webp. \[381\]
   * Document missing <kbd>Ctrl+6</kbd> binding in the manpage. \[347\]
 
-\[314\]: https://codeberg.org/nsxiv/nsxiv/pulls/314
-\[319\]: https://codeberg.org/nsxiv/nsxiv/pulls/319
-\[321\]: https://codeberg.org/nsxiv/nsxiv/pulls/321
-\[332\]: https://codeberg.org/nsxiv/nsxiv/pulls/332
-\[334\]: https://codeberg.org/nsxiv/nsxiv/pulls/334
-\[340\]: https://codeberg.org/nsxiv/nsxiv/pulls/340
-\[341\]: https://codeberg.org/nsxiv/nsxiv/pulls/341
-\[347\]: https://codeberg.org/nsxiv/nsxiv/pulls/347
-\[350\]: https://codeberg.org/nsxiv/nsxiv/pulls/350
-\[353\]: https://codeberg.org/nsxiv/nsxiv/pulls/353
-\[361\]: https://codeberg.org/nsxiv/nsxiv/pulls/361
-\[373\]: https://codeberg.org/nsxiv/nsxiv/pulls/373
-\[381\]: https://codeberg.org/nsxiv/nsxiv/pulls/381
-\[383\]: https://codeberg.org/nsxiv/nsxiv/pulls/383
-\[396\]: https://codeberg.org/nsxiv/nsxiv/pulls/396
-\[408\]: https://codeberg.org/nsxiv/nsxiv/pulls/408
-\[411\]: https://codeberg.org/nsxiv/nsxiv/pulls/411
+\[314\]: https://codeberg.org/nsxiv/nsxiv/pulls/314<br>
+\[319\]: https://codeberg.org/nsxiv/nsxiv/pulls/319<br>
+\[321\]: https://codeberg.org/nsxiv/nsxiv/pulls/321<br>
+\[332\]: https://codeberg.org/nsxiv/nsxiv/pulls/332<br>
+\[334\]: https://codeberg.org/nsxiv/nsxiv/pulls/334<br>
+\[340\]: https://codeberg.org/nsxiv/nsxiv/pulls/340<br>
+\[341\]: https://codeberg.org/nsxiv/nsxiv/pulls/341<br>
+\[347\]: https://codeberg.org/nsxiv/nsxiv/pulls/347<br>
+\[350\]: https://codeberg.org/nsxiv/nsxiv/pulls/350<br>
+\[353\]: https://codeberg.org/nsxiv/nsxiv/pulls/353<br>
+\[361\]: https://codeberg.org/nsxiv/nsxiv/pulls/361<br>
+\[373\]: https://codeberg.org/nsxiv/nsxiv/pulls/373<br>
+\[381\]: https://codeberg.org/nsxiv/nsxiv/pulls/381<br>
+\[383\]: https://codeberg.org/nsxiv/nsxiv/pulls/383<br>
+\[396\]: https://codeberg.org/nsxiv/nsxiv/pulls/396<br>
+\[408\]: https://codeberg.org/nsxiv/nsxiv/pulls/408<br>
+\[411\]: https://codeberg.org/nsxiv/nsxiv/pulls/411<br>
 
 - - -
 
@@ -227,18 +227,18 @@ references *above* can be found on the new main nsxiv repository on Codeberg.
   * Don't override statusbar if info script doesn't exist. \[271\]
   * Potential misbehavior regarding font. \[250\]
 
-\[245\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/245
-\[247\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/247
-\[250\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/250
-\[251\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/251
-\[263\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/263
-\[264\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/264
-\[260\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/260
-\[264\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/264
-\[265\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/265
-\[266\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/266
-\[271\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/271
-\[282\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/282
+\[245\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/245<br>
+\[247\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/247<br>
+\[250\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/250<br>
+\[251\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/251<br>
+\[263\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/263<br>
+\[264\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/264<br>
+\[260\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/260<br>
+\[264\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/264<br>
+\[265\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/265<br>
+\[266\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/266<br>
+\[271\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/271<br>
+\[282\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/282<br>
 
 - - -
 
@@ -270,18 +270,18 @@ references *above* can be found on the new main nsxiv repository on Codeberg.
   * Window title not working on certain WMs. \[234\]
   * Various compiler warnings. \[197\]
 
-\[167\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/167
-\[184\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/184
-\[186\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/186
-\[188\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/188
-\[191\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/191
-\[197\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/197
-\[200\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/200
-\[203\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/203
-\[213\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/213
-\[225\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/225
-\[231\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/231
-\[234\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/234
+\[167\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/167<br>
+\[184\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/184<br>
+\[186\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/186<br>
+\[188\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/188<br>
+\[191\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/191<br>
+\[197\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/197<br>
+\[200\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/200<br>
+\[203\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/203<br>
+\[213\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/213<br>
+\[225\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/225<br>
+\[231\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/231<br>
+\[234\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/234<br>
 
 - - -
 
@@ -332,32 +332,32 @@ references *above* can be found on the new main nsxiv repository on Codeberg.
   * Wrong comments in `config.h` and description in `manpage`.
     \[105\],\[106\],\[152\]
 
-\[20\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/20
-\[68\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/68
-\[71\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/71
-\[76\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/76
-\[80\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/80
-\[86\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/86
-\[91\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/91
-\[95\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/95
-\[96\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/96
-\[98\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/98
-\[105\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/105
-\[106\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/106
-\[114\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/114
-\[115\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/115
-\[117\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/117
-\[134\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/134
-\[141\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/141
-\[150\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/150
-\[152\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/152
-\[155\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/155
-\[163\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/163
-\[164\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/164
-\[165\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/165
-\[171\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/171
-\[172\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/172
-\[178\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/178
+\[20\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/20<br>
+\[68\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/68<br>
+\[71\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/71<br>
+\[76\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/76<br>
+\[80\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/80<br>
+\[86\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/86<br>
+\[91\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/91<br>
+\[95\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/95<br>
+\[96\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/96<br>
+\[98\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/98<br>
+\[105\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/105<br>
+\[106\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/106<br>
+\[114\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/114<br>
+\[115\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/115<br>
+\[117\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/117<br>
+\[134\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/134<br>
+\[141\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/141<br>
+\[150\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/150<br>
+\[152\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/152<br>
+\[155\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/155<br>
+\[163\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/163<br>
+\[164\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/164<br>
+\[165\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/165<br>
+\[171\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/171<br>
+\[172\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/172<br>
+\[178\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/178<br>
 
 - - -
 
@@ -404,20 +404,20 @@ references *above* can be found on the new main nsxiv repository on Codeberg.
   * Rare crash when showing some GIFs. \[41\]
   * Rare event where nsxiv wouldn't close after window being destroyed. \[53\]
 
-\[2\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/2
-\[3\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/3
-\[12\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/12
-\[13\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/13
-\[14\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/14
-\[15\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/15
-\[19\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/19
-\[23\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/23
-\[31\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/31
-\[33\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/33
-\[41\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/41
-\[51\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/51
-\[53\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/53
-\[57\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/57
+\[2\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/2<br>
+\[3\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/3<br>
+\[12\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/12<br>
+\[13\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/13<br>
+\[14\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/14<br>
+\[15\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/15<br>
+\[19\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/19<br>
+\[23\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/23<br>
+\[31\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/31<br>
+\[33\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/33<br>
+\[41\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/41<br>
+\[51\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/51<br>
+\[53\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/53<br>
+\[57\]: https://codeberg.org/nsxiv/nsxiv-record/pulls/57<br>
 
 
 sxiv
