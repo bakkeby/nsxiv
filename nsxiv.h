@@ -109,7 +109,7 @@ typedef enum {
 
 typedef struct {
 	const char *name; /* as given by user */
-	const char *path; /* always absolute, result of realpath(3) */
+	const char *path; /* lazily resolved absolute path, generally should be accessed via file_realpath() */
 	fileflags_t flags;
 	float zoom;
 } fileinfo_t;
@@ -373,6 +373,7 @@ char* r_readdir(r_dir_t*, bool);
 int r_mkdir(char*);
 void construct_argv(char**, unsigned int, ...);
 pid_t spawn(int*, int*, int, char *const []);
+const char *file_realpath(const fileinfo_t*);
 
 
 /* window.c */
