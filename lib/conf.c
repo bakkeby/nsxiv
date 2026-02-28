@@ -1,8 +1,5 @@
 #include <strings.h>
 
-#define DIR_MAX 4080
-#define PATH_MAX 4096
-
 int cfg_window_width = 800;
 int cfg_window_height = 600;
 int cfg_window_top_statusbar = 0;
@@ -74,15 +71,16 @@ void
 load_config(void)
 {
 	config_t cfg;
-	char config_path[DIR_MAX] = {0};
-	char config_file[PATH_MAX] = {0};
 
-	char filename[DIR_MAX];
-	snprintf(filename, sizeof(filename), "%s.cfg", progname);
+	char *filename = xasprintf("%s.cfg", progname);
+	char *config_file = get_config_path(filename);
 
-	set_config_path(filename, config_path, config_file);
+	if (!config_file)
+		return;
+
 	config_init(&cfg);
-	config_set_include_dir(&cfg, config_path);
+	char *config_path = strdup(config_file);
+	config_set_include_dir(&cfg, dirname(config_path));
 
 	if (!config_read_file(&cfg, config_file)) {
 		if (!strcmp(config_error_text(&cfg), "file I/O error")) {
@@ -111,6 +109,10 @@ load_config(void)
 	load_command_settings(&cfg);
 
 	config_destroy(&cfg);
+
+	free(filename);
+	free(config_file);
+	free(config_path);
 }
 
 void

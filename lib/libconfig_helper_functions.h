@@ -27,4 +27,4 @@ static int config_lookup_unsigned_int(const config_t *cfg, const char *name, uns
 static int config_setting_lookup_unsigned_int(const config_setting_t *cfg, const char *name, unsigned int *ptr);
 static int _config_setting_get_unsigned_int(const config_setting_t *cfg_item, unsigned int *ptr);
 
-static void set_config_path(const char* filename, char *config_path, char *config_file);
+static char *get_config_path(const char *filename);

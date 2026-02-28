@@ -375,6 +375,7 @@ int r_mkdir(char*);
 void construct_argv(char**, unsigned int, ...);
 pid_t spawn(int*, int*, int, char *const []);
 const char *file_realpath(const fileinfo_t*);
+char* xasprintf(const char *fmt, ...);
 
 
 /* window.c */

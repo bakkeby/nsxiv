@@ -230,25 +230,25 @@ _config_setting_get_unsigned_int(const config_setting_t *cfg_item, unsigned int 
 	return 1;
 }
 
-void
-set_config_path(const char* filename, char *config_path, char *config_file)
+char *
+get_config_path(const char *filename)
 {
-	const char *xdg_config_home = getenv("XDG_CONFIG_HOME");
-	const char *home = getenv("HOME");
+	if (!filename)
+		return NULL;
 
 	if (startswith("/", filename)) {
-		char *dname = strdup(filename);
-		snprintf(config_path, PATH_MAX, "%s", dirname(dname));
-		snprintf(config_file, PATH_MAX, "%s", filename);
-		free(dname);
-		return;
+		return strdup(filename);
 	}
 
+	const char *xdg_config_home = getenv("XDG_CONFIG_HOME");
 	if (xdg_config_home && xdg_config_home[0] != '\0') {
-		snprintf(config_path, PATH_MAX, "%s/%s", xdg_config_home, progname);
-		snprintf(config_file, PATH_MAX, "%s/%s", config_path, filename);
-	} else if (home) {
-		snprintf(config_path, PATH_MAX, "%s/.config/%s", home, progname);
-		snprintf(config_file, PATH_MAX, "%s/%s", config_path, filename);
+		return xasprintf("%s/%s/%s", xdg_config_home, progname, filename);
 	}
+
+	const char *home = getenv("HOME");
+	if (home && home[0] != '\0') {
+		return xasprintf("%s/.config/%s/%s", home, progname, filename);
+	}
+
+	return NULL;
 }
