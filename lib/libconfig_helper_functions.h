@@ -1,5 +1,4 @@
 #include <libconfig.h>
-#include <libgen.h>
 
 static int startswith(const char *needle, const char *haystack);
 

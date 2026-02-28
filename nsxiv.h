@@ -376,7 +376,7 @@ void construct_argv(char**, unsigned int, ...);
 pid_t spawn(int*, int*, int, char *const []);
 const char *file_realpath(const fileinfo_t*);
 char* xasprintf(const char *fmt, ...);
-
+char *path_dirname(const char *path);
 
 /* window.c */
 

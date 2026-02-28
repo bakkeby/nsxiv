@@ -79,8 +79,8 @@ load_config(void)
 		return;
 
 	config_init(&cfg);
-	char *config_path = strdup(config_file);
-	config_set_include_dir(&cfg, dirname(config_path));
+	char *config_path = path_dirname(config_file);
+	config_set_include_dir(&cfg, config_path);
 
 	if (!config_read_file(&cfg, config_file)) {
 		if (!strcmp(config_error_text(&cfg), "file I/O error")) {
