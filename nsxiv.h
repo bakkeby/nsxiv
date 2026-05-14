@@ -104,7 +104,9 @@ typedef enum {
 typedef enum {
 	FF_WARN    = 1,
 	FF_MARK    = 2,
-	FF_TN_INIT = 4
+	FF_TN_INIT = 4,
+	FF_SYMLINK = 8,
+	FF_TN_NEEDS_UPDATE = 16
 } fileflags_t;
 
 typedef struct {
@@ -374,7 +376,7 @@ char* r_readdir(r_dir_t*, bool);
 int r_mkdir(char*);
 void construct_argv(char**, unsigned int, ...);
 pid_t spawn(int*, int*, int, char *const []);
-const char *file_realpath(const fileinfo_t*);
+const char *file_realpath(const fileinfo_t*, bool);
 char* xasprintf(const char *fmt, ...);
 char *path_dirname(const char *path);
 
