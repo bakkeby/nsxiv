@@ -883,6 +883,7 @@ parse_function(const char *string, appmode_t *mode)
 		{ "change_brightness",  cg_change_brightness,  MODE_ALL },
 		{ "change_contrast",    cg_change_contrast,    MODE_ALL },
 		{ "dmenu_search",       cg_dmenu_search,       MODE_ALL },
+		{ "drag_window",        cg_drag_window,        MODE_ALL },
 		{ "first",              cg_first,              MODE_ALL },
 		{ "mark_range",         cg_mark_range,         MODE_ALL },
 		{ "n_or_last",          cg_n_or_last,          MODE_ALL },

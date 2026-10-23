@@ -329,6 +329,46 @@ bool cg_dmenu_search(arg_t _)
 	return navigate_to(goto_img);
 }
 
+bool cg_drag_window(arg_t arg)
+{
+	// If MODE_IMAGE and mouse is in the right or left 1/3, move to next/prev img
+	if (mode == MODE_IMAGE && nav_button() != 1) return ci_cursor_navigate(None);
+
+	// In thumbnail mode, always run select command
+	if (mode == MODE_THUMB) ct_select(arg);
+
+	// Similar code can be found in mpv
+	XEvent ev;
+	XClientMessageEvent *cm;
+
+	memset(&ev, 0, sizeof(ev));
+	ev.type = ClientMessage;
+
+	cm = &ev.xclient;
+	cm->window = win.xwin;
+
+	// https://specifications.freedesktop.org/wm/latest-single/#id-1.5.4
+	cm->message_type = atoms[ATOM__NET_WM_MOVERESIZE];
+	cm->format = 32;
+	cm->data.l[0] = xbutton_ev->x_root;
+	cm->data.l[1] = xbutton_ev->y_root;
+	cm->data.l[2] = 8; /* movement only */
+	cm->data.l[3] = xbutton_ev->button;
+	cm->data.l[4] = 1;
+
+	// From the linked doc:
+	//    The Client MUST release all grabs prior to sending such message (except for the
+	//    _NET_WM_MOVERESIZE_CANCEL message).
+	// In my test, window does not move without this in fluxbox (but does in labwc)
+	XUngrabPointer(win.env.dpy, CurrentTime);
+
+	XSendEvent(win.env.dpy, DefaultRootWindow(win.env.dpy), False,
+	           SubstructureNotifyMask | SubstructureRedirectMask, &ev);
+
+	XFlush(win.env.dpy);
+	return true;
+}
+
 bool ci_navigate(arg_t n)
 {
 	if (prefix > 0)
