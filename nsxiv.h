@@ -214,6 +214,7 @@ struct img {
 	bool anti_alias;
 	bool alpha_layer;
 	bool autoreload_pending;
+	unsigned int load_gen; /* bumped on every successful img_load() */
 
 	struct {
 		bool on;
