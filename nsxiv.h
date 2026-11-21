@@ -120,7 +120,7 @@ typedef struct {
 /* timeouts in milliseconds: */
 enum {
 	TO_AUTORELOAD    = 128,
-	TO_REDRAW_RESIZE = 75,
+	TO_REDRAW_RESIZE = 33, /* ~30 fps */
 	TO_REDRAW_THUMBS = 200,
 	TO_CURSOR_HIDE   = 1200,
 	TO_DOUBLE_CLICK  = 300
