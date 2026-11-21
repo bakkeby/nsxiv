@@ -773,7 +773,7 @@ static void on_keypress(XKeyEvent *kev)
 			handle_key_handler(false);
 	} else if (*ksym >= '0' && *ksym <= '9') {
 		/* number prefix for commands */
-		prefix = prefix * 10 + (int)(*ksym - '0');
+		prefix = prefix * 10 + (*ksym - '0');
 		return;
 	} else {
 		dirty = process_bindings(cfg_keys, num_key_bindings, *ksym, kev->state);
