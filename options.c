@@ -32,7 +32,9 @@
 #pragma GCC diagnostic push /* also works on clang */
 #pragma GCC diagnostic ignored "-Wshadow"
 #pragma GCC diagnostic ignored "-Wunused-function"
+/* NOLINTBEGIN(bugprone-signed-char-misuse) */
 #include "optparse.h"
+/* NOLINTEND(bugprone-signed-char-misuse) */
 #pragma GCC diagnostic pop
 
 extern int cfg_options_anti_alias;
